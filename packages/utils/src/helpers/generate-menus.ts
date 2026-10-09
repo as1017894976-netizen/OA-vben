@@ -152,8 +152,9 @@ function convertServerMenuToRouteRecordStringComponent(
       menu.component = '';
     }
 
-    // path
-    if (parent) {
+    // path：以 / 开头的子菜单路径视为绝对路径（如工作台下的 /workspace），不再拼接父路径，
+    // 否则会得到 /dashboard//workspace，与默认首页 /workspace 对不上而显示 404
+    if (parent && !menu.path.startsWith('/')) {
       menu.path = `${parent}/${menu.path}`;
     }
 
